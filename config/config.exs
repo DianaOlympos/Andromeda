@@ -14,6 +14,17 @@ config :andromeda, Andromeda.Endpoint,
   pubsub: [name: Andromeda.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+config :guardian, Guardian,
+        permissions: %{
+          client: [:default],
+          admin: [:all]
+        },
+        issuer: "Andromeda",
+        ttl: { 20, :hours },
+        verify_issuer: true, # optional
+        secret_key: "PWRDjzEkJdw48BsgdNyzHGF6Atvb6HCtxLj95aDU",
+        serializer: Evesurvey.GuardianSerializer
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
