@@ -6,6 +6,7 @@ Launch a fleet as a fleet commander, then give the link to your players.
 
 ###TODO List
     -[x] Implement SSO
+    -[ ] Check how to handle users
     -[ ] Implement Authentication for admin
     -[ ] Implement Channels
     -[ ] Implement fitting endpoint

@@ -4,6 +4,7 @@ defmodule Evesurvey.GuardianSerializer do
   alias Evesurvey.Repo
   alias Evesurvey.User
 
+#TODO : change the serialize for_token and from_token
   def for_token(user = %{id: _}), do: { :ok, "User:#{user.id}" }
   def for_token(_), do: { :error, "Unknown resource type" }
 
