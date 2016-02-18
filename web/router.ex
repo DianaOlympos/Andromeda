@@ -1,5 +1,6 @@
 defmodule Andromeda.Router do
   use Andromeda.Web, :router
+  alias Guardian.Plug.EnsurePermissions
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -9,12 +10,17 @@ defmodule Andromeda.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :browser_session do
+    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.LoadResource
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/auth", Evesurvey do
-    pipe_through :browser
+    pipe_through [:browser, :browser_session]
 
     get "/", AuthController, :index
     get "/callback", AuthController, :callback

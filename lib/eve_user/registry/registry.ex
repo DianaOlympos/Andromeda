@@ -15,10 +15,10 @@ defmodule EveUser.Registry do
 
   Returns `{:ok, pid}` if the user exists, `:error` otherwise.
   """
-  def lookup(server, id) when is_atom(server) do
+  defp lookup(server, id) when is_atom(server) do
     case :ets.lookup(server, id) do
       [{^id, pid}] -> {:ok, pid}
-      [] -> :error
+      [] -> {:error, "no id"}
     end
   end
 
@@ -27,6 +27,13 @@ defmodule EveUser.Registry do
   """
   def create(server, user= %UserDetails{}) do
     GenServer.call(server, {:create, user})
+  end
+
+  @doc """
+  Look for the pid for the corresponding id
+  """
+  def look_pid(server, id) do
+    GenServer.call(server, {:look, id})
   end
 
   @doc """
@@ -48,12 +55,21 @@ defmodule EveUser.Registry do
     case lookup(users, user.id) do
       {:ok, pid} ->
         {:reply, pid, {users, refs}}
-      :error ->
+      {:error, _} ->
         {:ok, pid} = EveUser.User.Supervisor.start_types(user)
         ref = Process.monitor(pid)
         refs = Map.put(refs, ref, id)
         :ets.insert(users, {user.id, pid})
         {:reply, pid, {users, refs}}
+    end
+  end
+
+  def handle_call({:look, id}, _from, {users, refs}) do
+    case lookup(users, id) do
+      {:ok, pid} ->
+        {:reply, pid, {users, refs}}
+      {:error, msg } ->
+        {:reply, {:error, message}, {users, refs}}
     end
   end
 

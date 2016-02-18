@@ -15,18 +15,14 @@ config :andromeda, Andromeda.Endpoint,
            adapter: Phoenix.PubSub.PG2]
 
 config :andromeda,
-  scope: "characterLocationRead characterLocationRead characterFittingsWrite"
+  scope: "characterLocationRead characterLocationWrite characterFittingsWrite"
 
-config :guardian, Guardian,
-        permissions: %{
-          client: [:default],
-          admin: [:all]
-        },
+config :guardian, Guardian,,
         issuer: "Andromeda",
         ttl: { 20, :hours },
         verify_issuer: true, # optional
         secret_key: "PWRDjzEkJdw48BsgdNyzHGF6Atvb6HCtxLj95aDU",
-        serializer: Evesurvey.GuardianSerializer
+        serializer: Andromeda.GuardianSerializer
 
 # Configures Elixir's Logger
 config :logger, :console,

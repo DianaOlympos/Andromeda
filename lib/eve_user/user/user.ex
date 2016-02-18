@@ -7,10 +7,16 @@ defmodule EveUser.User do
   end
 
   @doc """
-  Gets the list of price from the `types`.
+  Gets the user of price from the `user`.
   """
-  def get_user(pid) do
+  def get_user(pid) when is_pid(pid) do
     Agent.get(pid, fn user -> user end)
+  end
+
+  def get_user(id) when is_integer(id) do
+    with  {:ok, pid } <-  EveUser.Registry.look_pid(EveUser.Registry,id)
+          user        <-  Agent.get(pid, fn user -> user end)
+          do: user
   end
 
   @doc """

@@ -41,6 +41,6 @@ defmodule Eve do
     client
     |> put_header("Accept", "application/json")
     |> put_header("Authorization", "Basic " <> Base.encode64( Application.get_env(Andromeda, :client_id) <> ":" <> Application.get_env(Andromeda, :client_secret)))
-    |>AuthCode.get_token(params, headers)
+    |> AuthCode.get_token(params, headers)
   end
 end
