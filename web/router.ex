@@ -13,6 +13,14 @@ defmodule Andromeda.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/auth", Evesurvey do
+    pipe_through :browser
+
+    get "/", AuthController, :index
+    get "/callback", AuthController, :callback
+    get "/signout", AuthController, :signout
+  end
+
   scope "/", Andromeda do
     pipe_through :browser # Use the default browser stack
 

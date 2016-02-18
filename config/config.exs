@@ -14,6 +14,9 @@ config :andromeda, Andromeda.Endpoint,
   pubsub: [name: Andromeda.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+config :andromeda,
+  scope: "characterLocationRead characterLocationRead characterFittingsWrite"
+
 config :guardian, Guardian,
         permissions: %{
           client: [:default],

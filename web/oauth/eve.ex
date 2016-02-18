@@ -23,7 +23,7 @@ defmodule Eve do
 
   def authorize_url!(params \\ []) do
     new()
-    |> put_param(:scope, "")
+    |> put_param("scope", Application.get_env(Andromeda,:scope))
     |> OAuth2.Client.authorize_url!(params)
   end
 
