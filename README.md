@@ -8,7 +8,7 @@ Launch a fleet as a fleet commander, then give the link to your players.
 
 - [x] Implement SSO
 - [x] Implement a registry for user : ETS+Agent
-- [x] Implement Authentication
+- [/] Implement Authentication
 - [ ] Implement Channels
 - [ ] Implement fitting endpoint
 - [ ] Implement location endpoint
