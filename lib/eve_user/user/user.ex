@@ -1,4 +1,5 @@
 defmodule EveUser.User do
+  alias EveUser.UserDetails
   @doc """
   Starts a new types container.
   """
@@ -14,9 +15,8 @@ defmodule EveUser.User do
   end
 
   def get_user(id) when is_integer(id) do
-    with  {:ok, pid } <-  EveUser.Registry.look_pid(EveUser.Registry,id)
-          user        <-  Agent.get(pid, fn user -> user end)
-          do: user
+    with  {:ok, pid } <-  EveUser.Registry.look_pid(EveUser.Registry,id),
+          do: Agent.get(pid, fn user -> user end)
   end
 
   @doc """

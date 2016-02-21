@@ -20,8 +20,15 @@ defmodule Eve do
       token_url: "https://login.eveonline.com/oauth/token"
     ])
   end
+  def authorize_url!(params \\ [])
+  def authorize_url!([fleet_id | tail]) do
+    new()
+    |> put_param("scope", Application.get_env(Andromeda,:scope))
+    |> put_param("state", fleet_id)
+    |> OAuth2.Client.authorize_url!(tail)
+  end
 
-  def authorize_url!(params \\ []) do
+  def authorize_url!(params) do
     new()
     |> put_param("scope", Application.get_env(Andromeda,:scope))
     |> OAuth2.Client.authorize_url!(params)

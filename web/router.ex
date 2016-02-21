@@ -1,6 +1,5 @@
 defmodule Andromeda.Router do
   use Andromeda.Web, :router
-  alias Guardian.Plug.EnsurePermissions
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -19,7 +18,14 @@ defmodule Andromeda.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/auth", Evesurvey do
+  scope "/fleet", Andromeda do
+    pipe_through [:browser, :browser_session]
+
+    get "/", FleetController, :index
+    get "/:id", FleetController, :fleet
+  end
+
+  scope "/auth", Andromeda do
     pipe_through [:browser, :browser_session]
 
     get "/", AuthController, :index

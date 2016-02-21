@@ -1,16 +1,22 @@
 defmodule Andromeda.AuthController do
   use Andromeda.Web, :controller
+  alias EveUser.UserDetails
+
+
+  def index(conn, %{"fleet_id"=>fleet_id}) do
+    redirect conn, external: Eve.authorize_url!(fleet_id)
+  end
 
   def index(conn, _params) do
     redirect conn, external: Eve.authorize_url!()
   end
 
-  def callback(conn, %{"code" => code}) do
+  def callback(conn, %{"code" => code, "state"=> fleet_id}) do
     token = Eve.get_token!(code: code)
 
     conn
     |> authenticate_char(token)
-    |> redirect(to: "/")
+    |> redirect(to: "/"<>fleet_id)
 
   end
 
@@ -31,18 +37,14 @@ defmodule Andromeda.AuthController do
 
     char_details = Evesurvey.Characterdetails.fetch_user_details(token.access_token)
 
-    user = %UserDetails{id:char_details["CharacterID"],name:char_details["CharacterName"],
-     refresh_token:token.refresh_token, access_token: token.access_token}
+    user = %UserDetails{id: char_details["CharacterID"],name: char_details["CharacterName"],
+     refresh_token: token.refresh_token, access_token: token.access_token}
 
     EveUser.Registry.create(EveUser.Registry,user)
 
     conn
-    |> sign_in_user(token, char_details)
     |> Guardian.Plug.sign_in(user, :token)
     |> put_flash(:info, char_details["CharacterName"]<>" logged succesfully")
-
   end
-
-end
 
 end

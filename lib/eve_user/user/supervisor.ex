@@ -1,5 +1,6 @@
 defmodule EveUser.User.Supervisor do
   use Supervisor
+  alias EveUser.UserDetails
 
   # A simple module attribute that stores the supervisor name
   @name EveUser.User.Supervisor

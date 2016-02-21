@@ -1,5 +1,6 @@
 defmodule EveUser.Registry do
   use GenServer
+  alias EveUser.UserDetails
 
   ## Client API
 
@@ -58,7 +59,7 @@ defmodule EveUser.Registry do
       {:error, _} ->
         {:ok, pid} = EveUser.User.Supervisor.start_types(user)
         ref = Process.monitor(pid)
-        refs = Map.put(refs, ref, id)
+        refs = Map.put(refs, ref, user.id)
         :ets.insert(users, {user.id, pid})
         {:reply, pid, {users, refs}}
     end
@@ -69,7 +70,7 @@ defmodule EveUser.Registry do
       {:ok, pid} ->
         {:reply, pid, {users, refs}}
       {:error, msg } ->
-        {:reply, {:error, message}, {users, refs}}
+        {:reply, {:error, msg}, {users, refs}}
     end
   end
 

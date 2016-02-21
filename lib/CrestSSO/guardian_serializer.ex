@@ -1,5 +1,6 @@
 defmodule Andromeda.GuardianSerializer do
   @behaviour Guardian.Serializer
+  alias EveUser.UserDetails
 
 #TODO : change the serialize for_token and from_token
   def for_token(user = %UserDetails{}), do: { :ok, "User:#{user.id}" }

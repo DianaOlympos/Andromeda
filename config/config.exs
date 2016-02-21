@@ -14,10 +14,10 @@ config :andromeda, Andromeda.Endpoint,
   pubsub: [name: Andromeda.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
-config :andromeda,
-  scope: "characterLocationRead characterLocationWrite characterFittingsWrite"
+# config :andromeda, Eve,
+#   scope: "characterLocationRead characterLocationWrite characterFittingsWrite"
 
-config :guardian, Guardian,,
+config :guardian, Guardian,
         issuer: "Andromeda",
         ttl: { 20, :hours },
         verify_issuer: true, # optional
