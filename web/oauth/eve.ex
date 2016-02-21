@@ -1,4 +1,4 @@
-defmodule Eve do
+defmodule Andromeda.Eve do
   @moduledoc """
   An OAuth2 strategy for Eve.
   Based on the OAuth2 strategy for GitHub by Sonny Scroggin
@@ -12,9 +12,9 @@ defmodule Eve do
   def new do
     OAuth2.Client.new([
       strategy: __MODULE__,
-      client_id: Application.get_env(Andromeda, :client_id),
-      client_secret: Application.get_env(Andromeda, :client_secret),
-      redirect_uri: System.get_env(Andromeda, :redirect_uri),
+      client_id: Application.get_env(:andromeda, :client_id),
+      client_secret: Application.get_env(:andromeda, :client_secret),
+      redirect_uri: Application.get_env(:andromeda, :redirect_uri),
       site: "https://login.eveonline.com",
       authorize_url: "https://login.eveonline.com/oauth/authorize",
       token_url: "https://login.eveonline.com/oauth/token"
@@ -23,14 +23,14 @@ defmodule Eve do
   def authorize_url!(params \\ [])
   def authorize_url!([fleet_id | tail]) do
     new()
-    |> put_param("scope", Application.get_env(Andromeda,:scope))
+    |> put_param("scope", Application.get_env(:andromeda,:scope))
     |> put_param("state", fleet_id)
     |> OAuth2.Client.authorize_url!(tail)
   end
 
   def authorize_url!(params) do
     new()
-    |> put_param("scope", Application.get_env(Andromeda,:scope))
+    |> put_param("scope", Application.get_env(:andromeda,:scope))
     |> OAuth2.Client.authorize_url!(params)
   end
 
@@ -47,7 +47,7 @@ defmodule Eve do
   def get_token(client, params, headers) do
     client
     |> put_header("Accept", "application/json")
-    |> put_header("Authorization", "Basic " <> Base.encode64( Application.get_env(Andromeda, :client_id) <> ":" <> Application.get_env(Andromeda, :client_secret)))
+    |> put_header("Authorization", "Basic " <> Base.encode64( Application.get_env(:andromeda, :client_id) <> ":" <> Application.get_env(:andromeda, :client_secret)))
     |> AuthCode.get_token(params, headers)
   end
 end

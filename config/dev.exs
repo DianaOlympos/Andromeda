@@ -40,3 +40,5 @@ config :andromeda, Andromeda.Repo,
   database: "andromeda_dev",
   hostname: "localhost",
   pool_size: 10
+
+import_config "prod.secret.exs"

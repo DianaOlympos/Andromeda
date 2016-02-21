@@ -4,25 +4,32 @@ defmodule Andromeda.AuthController do
 
 
   def index(conn, %{"fleet_id"=>fleet_id}) do
-    redirect conn, external: Eve.authorize_url!(fleet_id)
+    redirect conn, external: Andromeda.Eve.authorize_url!(fleet_id)
   end
 
   def index(conn, _params) do
-    redirect conn, external: Eve.authorize_url!()
+    redirect conn, external: Andromeda.Eve.authorize_url!()
   end
 
   def callback(conn, %{"code" => code, "state"=> fleet_id}) do
-    token = Eve.get_token!(code: code)
+    token = Andromeda.Eve.get_token!(code: code)
 
     conn
     |> authenticate_char(token)
     |> redirect(to: "/"<>fleet_id)
+  end
 
+  def callback(conn, %{"code" => code}) do
+    token = Andromeda.Eve.get_token!(code: code)
+
+    conn
+    |> authenticate_char(token)
+    |> redirect(to: "/")
   end
 
   def unauthorized(conn,_params) do
     conn
-    |> put_flash(:info, "You are not authorized to access these assets. If this is an error, contact Diana Olympos.")
+    |> put_flash(:info, "You are not authenticated, please log in using SSO.")
     |> redirect(to: "/")
   end
 

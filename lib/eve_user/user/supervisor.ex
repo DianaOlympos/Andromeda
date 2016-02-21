@@ -1,7 +1,5 @@
 defmodule EveUser.User.Supervisor do
   use Supervisor
-  alias EveUser.UserDetails
-
   # A simple module attribute that stores the supervisor name
   @name EveUser.User.Supervisor
 
@@ -9,8 +7,8 @@ defmodule EveUser.User.Supervisor do
     Supervisor.start_link(__MODULE__, :ok, name: @name)
   end
 
-  def start_types(user=%UserDetails{}) do
-    Supervisor.start_child(@name, user)
+  def start_users() do
+    Supervisor.start_child(@name,[])
   end
 
   def init(:ok) do

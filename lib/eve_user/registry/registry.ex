@@ -16,7 +16,7 @@ defmodule EveUser.Registry do
 
   Returns `{:ok, pid}` if the user exists, `:error` otherwise.
   """
-  defp lookup(server, id) when is_atom(server) do
+  def lookup(server, id) when is_atom(server) do
     case :ets.lookup(server, id) do
       [{^id, pid}] -> {:ok, pid}
       [] -> {:error, "no id"}
@@ -47,17 +47,18 @@ defmodule EveUser.Registry do
   ## Server callbacks
 
   def init(table) do
-    types = :ets.new(table, [:named_table, read_concurrency: true])
+    users = :ets.new(table, [:named_table, read_concurrency: true])
     refs  = %{}
-    {:ok, {types, refs}}
+    {:ok, {users, refs}}
   end
 
-  def handle_call({:create, user = %UserDetails{}}, _from, {users, refs}) do
+  def handle_call({:create, user}, _from, {users, refs}) do
     case lookup(users, user.id) do
       {:ok, pid} ->
         {:reply, pid, {users, refs}}
       {:error, _} ->
-        {:ok, pid} = EveUser.User.Supervisor.start_types(user)
+        {:ok, pid} = EveUser.User.Supervisor.start_users()
+        EveUser.User.update_user(pid, user)
         ref = Process.monitor(pid)
         refs = Map.put(refs, ref, user.id)
         :ets.insert(users, {user.id, pid})
