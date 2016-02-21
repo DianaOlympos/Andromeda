@@ -29,6 +29,7 @@ defmodule Andromeda.Router do
     pipe_through [:browser, :browser_session]
 
     get "/", AuthController, :index
+    get "/:fleet_id", AuthController, :index
     get "/callback", AuthController, :callback
     get "/signout", AuthController, :signout
   end

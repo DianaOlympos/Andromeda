@@ -1,3 +1,8 @@
 <%= if Guardian.Plug.current_token(@conn) do %>
   <meta name='guardian_token' content="<%= Guardian.Plug.current_token(@conn) %>">
 <% end %>
+
+<%#to connect, use
+let socket = new Socket("/ws");
+let guardianToken = jQuery('meta[name="guardian_token"]').attr('content');
+socket.connect({guardian_token: guardianToken}); %>
