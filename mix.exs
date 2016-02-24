@@ -38,7 +38,8 @@ defmodule Andromeda.Mixfile do
      {:gettext, "~> 0.9"},
      {:cowboy, "~> 1.0"},
      {:oauth2, "~> 0.5"},
-     {:guardian, "~> 0.10.0"}]
+     {:guardian, "~> 0.10.0"},
+     {:csv, "~> 1.2.4"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
