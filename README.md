@@ -8,17 +8,18 @@ Launch a fleet as a fleet commander, then give the link to your players.
 
 - [x] Implement SSO
 - [x] Implement a registry for user : ETS+Agent
-- [/] Implement Authentication
-- [ ] Implement Channels
+- [x] Implement Authentication
+- [x] Implement Channels
+- [ ] Implement protocol to talk
 - [ ] Implement fitting endpoint
 - [ ] Implement location endpoint
 - [ ] Implement map API
-- [ ] Implement map from SDE
+- [x] Implement map from SDE
 - [ ] Implement fleets
 
 ###Feature List
 
-- [ ] Map data
+- [x] Map data
 - [ ] Implement matrix of 5 jumps
 - [ ] Implement A* for destination
 - [ ] Implement FC
