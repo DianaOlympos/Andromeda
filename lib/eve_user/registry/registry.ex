@@ -62,6 +62,7 @@ defmodule EveUser.Registry do
         ref = Process.monitor(pid)
         refs = Map.put(refs, ref, user.id)
         :ets.insert(users, {user.id, pid})
+        Process.send_after(self,{:refresh, user.id},900000)
         {:reply, pid, {users, refs}}
     end
   end
@@ -79,6 +80,17 @@ defmodule EveUser.Registry do
     {id, refs} = Map.pop(refs, ref)
     :ets.delete(users, id)
     {:noreply, {users, refs}}
+  end
+
+  def handle_info({:refresh, user_id}, {users, refs}) do
+    case lookup(users, user_id) do
+      {:ok, pid} ->
+        EveUser.User.refresh_token(pid)
+        Process.send_after(self,{:refresh, user_id},900000)
+        {:noreply, {users, refs}}
+      {:error, _} ->
+        {:noreply, state}
+    end
   end
 
   def handle_info(_msg, state) do

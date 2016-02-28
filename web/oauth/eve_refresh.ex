@@ -1,11 +1,11 @@
-defmodule Andromeda.Eve do
+defmodule Andromeda.EveRefresh do
   @moduledoc """
   An OAuth2 strategy for Eve.
   Based on the OAuth2 strategy for GitHub by Sonny Scroggin
   in https://github.com/scrogson/oauth2_example
   """
   use OAuth2.Strategy
-  alias OAuth2.Strategy.AuthCode
+  alias OAuth2.Strategy.Refresh
 
   # Public API
 
@@ -21,35 +21,14 @@ defmodule Andromeda.Eve do
     ])
   end
 
-  def authorize_url!(params \\ [])
-
-  def authorize_url!([fleet_id | tail]) do
-    new()
-    |> put_param("scope", Application.get_env(:andromeda,:scope))
-    |> put_param("state", fleet_id)
-    |> OAuth2.Client.authorize_url!(tail)
-  end
-
-  def authorize_url!(params) do
-    new()
-    |> put_param("scope", Application.get_env(:andromeda,:scope))
-    |> OAuth2.Client.authorize_url!(params)
-  end
-
   def get_token!(params \\ [], headers \\ []) do
     OAuth2.Client.get_token!(new(), params, headers)
-  end
-
-  # Strategy Callbacks
-
-  def authorize_url(client, params) do
-    AuthCode.authorize_url(client, params)
   end
 
   def get_token(client, params, headers) do
     client
     |> put_header("Accept", "application/json")
     |> put_header("Authorization", "Basic " <> Base.encode64( Application.get_env(:andromeda, :client_id) <> ":" <> Application.get_env(:andromeda, :client_secret)))
-    |> AuthCode.get_token(params, headers)
+    |> Refresh.get_token(params, headers)
   end
 end

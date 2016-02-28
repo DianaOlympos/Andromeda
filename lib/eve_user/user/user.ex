@@ -26,4 +26,10 @@ defmodule EveUser.User do
     Agent.update(pid, fn _ -> user end)
   end
 
+  def refresh_token(pid) do
+    user = get_user(pid)
+    params = Keyword.put([],:refresh_token, user.refresh_token)
+    token = Andromeda.EveRefresh.get_token!(params)
+    user.access_token = token.access_token
+  end
 end
