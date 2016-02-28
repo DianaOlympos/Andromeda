@@ -22,7 +22,7 @@ defmodule EveUser.User do
   @doc """
   adds items to the list.
   """
-  def update_user(pid,user) do
+  def update_user(pid, user) do
     Agent.update(pid, fn _ -> user end)
   end
 
@@ -30,6 +30,7 @@ defmodule EveUser.User do
     user = get_user(pid)
     params = Keyword.put([],:refresh_token, user.refresh_token)
     token = Andromeda.EveRefresh.get_token!(params)
-    user.access_token = token.access_token
+    %{user | access_token: token.access_token}
+    update_user(pid, user)
   end
 end

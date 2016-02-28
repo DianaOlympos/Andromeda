@@ -27,7 +27,7 @@ defmodule Andromeda.AuthController do
     |> redirect(to: "/")
   end
 
-  def unauthorized(conn,%{"fleet_id"=>fleet_id}) do
+  def unauthenticated(conn,%{"fleet_id"=>fleet_id}) do
     conn
     |> put_flash(:info, "You are not authenticated, please log in using SSO.")
     |> redirect(to: "/auth/"<>"#{fleet_id}")

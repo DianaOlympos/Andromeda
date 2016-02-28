@@ -89,7 +89,7 @@ defmodule EveUser.Registry do
         Process.send_after(self,{:refresh, user_id},900000)
         {:noreply, {users, refs}}
       {:error, _} ->
-        {:noreply, state}
+        {:noreply, {users, refs}}
     end
   end
 
