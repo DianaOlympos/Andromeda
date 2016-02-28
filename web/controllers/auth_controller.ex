@@ -33,6 +33,12 @@ defmodule Andromeda.AuthController do
     |> redirect(to: "/auth/"<>"#{fleet_id}")
   end
 
+  def unauthenticated(conn, _params) do
+    conn
+    |> put_flash(:info, "You are not authenticated, please log in using SSO.")
+    |> redirect(to: "/auth/")
+  end
+
   def signout(conn, _params) do
     conn
     |> Guardian.Plug.sign_out
