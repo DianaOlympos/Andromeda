@@ -5,7 +5,7 @@ defmodule EveUser.UserDetails do
             alliance: "",
             corporation_id: 0,
             alliance_id: 0,
-            fleet: 0,
+            fleet: "",
             refresh_token: "",
             access_token: ""
 
@@ -16,7 +16,7 @@ defmodule EveUser.UserDetails do
     alliance: String.t,
     corporation_id: integer,
     alliance_id: integer,
-    fleet: integer,
+    fleet: String.t,
     refresh_token: String.t,
     access_token: String.t}
 end

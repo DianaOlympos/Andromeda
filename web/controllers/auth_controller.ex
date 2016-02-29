@@ -69,8 +69,11 @@ defmodule Andromeda.AuthController do
 
     char_details = Evesurvey.Characterdetails.fetch_user_details(token.access_token)
 
-    user = %UserDetails{id: char_details["CharacterID"],name: char_details["CharacterName"],
-     refresh_token: token.refresh_token, access_token: token.access_token}
+    user = %UserDetails{
+      id: char_details["CharacterID"],
+      name: char_details["CharacterName"],
+      refresh_token: token.refresh_token,
+      access_token: token.access_token}
 
     EveUser.Registry.create(EveUser.Registry,user)
 

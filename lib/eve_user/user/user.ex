@@ -22,8 +22,13 @@ defmodule EveUser.User do
   @doc """
   adds items to the list.
   """
-  def update_user(pid, user) do
+  def update_user(pid, user) when is_pid(pid) do
     Agent.update(pid, fn _ -> user end)
+  end
+
+  def update_user(id, user) when is_integer(id) do
+    with  {:ok, pid } <- EveUser.Registry.look_pid(EveUser.Registry,id),
+        do: Agent.update(pid, fn _ -> user end)
   end
 
   def refresh_token(pid) do

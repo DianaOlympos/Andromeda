@@ -22,6 +22,7 @@ defmodule Andromeda.Router do
     pipe_through [:browser, :browser_session]
 
     get "/", FleetController, :index
+    post "/create", FleetController, :create
     get "/:fleet_id", FleetController, :fleet
   end
 

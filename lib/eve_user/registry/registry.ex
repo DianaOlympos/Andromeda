@@ -26,7 +26,7 @@ defmodule EveUser.Registry do
   @doc """
   Ensures there is a user associated to the given `id` in `server`.
   """
-  def create(server, user= %UserDetails{}) do
+  def create(server, user \\%UserDetails{}) do
     GenServer.call(server, {:create, user})
   end
 
