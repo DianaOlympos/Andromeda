@@ -15,14 +15,14 @@ Launch a fleet as a fleet commander, then give the link to your players.
 - [ ] Implement location endpoint
 - [ ] Implement map API
 - [x] Implement map from SDE
-- [ ] Implement fleets
+- [x] Implement fleets
 
 ###Feature List
 
 - [x] Map data
 - [ ] Implement matrix of 5 jumps
 - [ ] Implement A* for destination
-- [ ] Implement FC
+- [x] Implement FC
 - [ ] Implement catch-up
 
 ### to use :
