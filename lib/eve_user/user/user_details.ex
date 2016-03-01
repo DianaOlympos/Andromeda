@@ -7,7 +7,8 @@ defmodule EveUser.UserDetails do
             alliance_id: 0,
             fleet: "",
             refresh_token: "",
-            access_token: ""
+            access_token: "",
+            location: 0
 
   @type t :: %EveUser.UserDetails{
     id: integer,
@@ -18,5 +19,6 @@ defmodule EveUser.UserDetails do
     alliance_id: integer,
     fleet: String.t,
     refresh_token: String.t,
-    access_token: String.t}
+    access_token: String.t,
+    location: integer}
 end

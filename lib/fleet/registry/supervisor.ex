@@ -8,7 +8,8 @@ defmodule EveFleet.Registry.Supervisor do
   def init(:ok) do
     children = [
       worker(EveFleet.Registry, [EveFleet.Registry]),
-      supervisor(EveFleet.Fleet.Supervisor, [])
+      supervisor(EveFleet.Fleet.Supervisor, []),
+      supervisor(Task.Supervisor,[[name: CrestMap.MapLocation.Supervisor]])
     ]
 
     supervise(children, strategy: :rest_for_one)
