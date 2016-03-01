@@ -4,7 +4,7 @@ defmodule Andromeda.PageView do
   def is_authed?(id) do
     case EveUser.UserDetails.get_user(id) do
       user -> true
-      {:error, _msg) -> false
+      {:error, _msg} -> false
     end
   end
 
