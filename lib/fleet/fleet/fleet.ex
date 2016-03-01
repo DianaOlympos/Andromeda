@@ -59,7 +59,7 @@ defmodule EveFleet.Fleet do
 
   def handle_info({:update_location, member}, _from, fleet) do
     if member in fleet.member_list do
-      #spawn Task that fetch location and update member
+      Task.Supervisor.start_child(CrestMap.MapLocation.Supervisor,fn -> CrestMap.MapLocation.location_handling(member) end)
       Process.send_after(self, {:update_location, member}, 15000)
     end
     {:no_reply, fleet}

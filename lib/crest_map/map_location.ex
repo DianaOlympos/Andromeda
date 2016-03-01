@@ -3,6 +3,11 @@ defmodule CrestMap.MapLocation do
   alias HTTPoison.Response
 
 
+def location_handling(id) do
+  get_location(id)
+  |>location
+end
+
 def location({user, {:ok, %Response{status_code: 200, body: "{}"}}}) do
   #sign out user
 end
