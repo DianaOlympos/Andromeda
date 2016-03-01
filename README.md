@@ -12,7 +12,7 @@ Launch a fleet as a fleet commander, then give the link to your players.
 - [x] Implement Channels
 - [ ] Implement protocol to talk
 - [ ] Implement fitting endpoint
-- [ ] Implement location endpoint
+- [x] Implement location endpoint
 - [ ] Implement map API
 - [x] Implement map from SDE
 - [x] Implement fleets
