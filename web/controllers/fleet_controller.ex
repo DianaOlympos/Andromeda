@@ -9,13 +9,12 @@ defmodule Andromeda.FleetController do
   end
 
   def fleet(conn, %{"fleet_id" => fleet_id}) do
-    id = Guardian.Plug.current_resource(conn)
-    user = EveUser.User.get_user(id)
+    user = Guardian.Plug.current_resource(conn)
     if user.fleet_id == fleet_id do
       render conn, "application.html", fleet_id: fleet_id
     else
       EveFleetFleet.look_pid(fleet_id)
-      |>EveFleet.Fleet.add_member(id)
+      |>EveFleet.Fleet.add_member(user.id)
       render conn, "application.html", fleet_id: fleet_id
     end
   end
@@ -27,12 +26,12 @@ defmodule Andromeda.FleetController do
     fleet = %FleetDetails{
       id: fleet_id,
       name: name,
-      fc: fc,
+      fc: fc.id,
       members_list: []
     }
 
     pid = EveFleet.Registry.create(EveFleet.Registry, fleet)
-    EveFleet.Fleet.add_member(pid, fc)
+    EveFleet.Fleet.add_member(pid, fc.id)
     redirect conn, to: "/fleet/"<>fleet_id
   end
 end
