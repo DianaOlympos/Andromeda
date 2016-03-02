@@ -1,5 +1,5 @@
 <%= if Guardian.Plug.current_token(@conn) do %>
-  <meta name='guardian_token' content="<%= Guardian.Plug.current_token(@conn) %>">
+	<meta name='guardian_token' content="<%= Guardian.Plug.current_token(@conn) %>">
 <% end %>
 
 <%#to connect, use

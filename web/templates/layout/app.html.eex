@@ -1,35 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>Andromeda - Your friendly fleet assistant!</title>
+		<link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+		<script type="text/javascript">
+				
+			function $ (id) { return document.querySelector(id); }
+			function $$ (id) { return document.querySelectorAll(id); }
 
-    <title>Hello Andromeda!</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-  </head>
+			String.prototype.format = function() {
+				var args = arguments;
+				return this.replace(/\${([a-zA-Z\d\-]+)}/g, function(match, varname) {
+					return typeof args[0] != 'undefined' && typeof args[0][varname] != 'undefined' ? args[0][varname] : "";
+				});
+			};
 
-  <body>
-    <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-          </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
+			function El (el, data) {
+				var element = typeof el == "string" ? document.createElement(el) : el;
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+				if(data) for(var i in data) if(i != "dataset" && i != "style") element[i] = data[i];
+				if(data && data.style) for(var j in data.style) element.style.setProperty(j, data.style[j]);
+				if(data && data.dataset) for(var k in data.dataset) element.dataset[k] = data.dataset[k];
 
-      <main role="main">
-        <%= render @view_module, @view_template, assigns %>
-      </main>
+				element.hide = function () { element.style.display = "none"; return element; };
+				element.destroy = function () { element.parentNode.removeChild(element); };
+				element.show = function () { element.style.display = "block"; return element; };
+				element.fadeIn = function () { element.style.opacity = "1"; return element; };
+				element.fadeOut = function () { element.style.opacity = "0"; return element; };
+				element.appendChildren = function (childs) { childs.map(function (i) { if(i) element.appendChild(i); }); return element; };
+				element.beforeChildren = function (childs) { childs.map(function (i) { if(i) element.parentNode.insertBefore(i, element); }); return element; };
+				element.clear = function () { element.innerHTML = ""; return element; };
+				element.on = function (listen, cb) { element.addEventListener(listen, cb); return element; };
+				element.$ = function (id) { return element.querySelector(id); };
+				element.$$ = function (id) { return element.querySelectorAll(id); };
 
-    </div> <!-- /container -->
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
-  </body>
+				return element;
+			}
+			
+		</script>
+		<script type="text/javascript">
+			var isLoggedIn = false;
+			var characterName = "";
+		</script>
+	</head>
+	<body>
+		<!-- css booleans -->
+		<input type="checkbox" class="check" id="isLoggedIn" />
+		<input type="checkbox" class="check" id="showSidebar" />
+		<div id="container">
+			<!-- nav -->
+			<nav>
+				<h1>ANDROMEDA</h1>
+				<h4>Your friendly fleet assistant</h4>
+				<a class="isLoggedIn show" href="/auth/signout/"><h2></h2></a>
+				<a class="isLoggedOut show" href="/auth/"><img src="<%= static_path(@conn, "/images/EVE_SSO_Login_Buttons_Large_White.png") %>" /></a>
+				<label id="menu" for="showSidebar" class="isLoggedIn fade click">MENU</label>
+				<h5 id="smallheading" class="isLoggedIn fade">Andromeda</h5>
+			</nav>
+			<!-- main -->
+			<main>
+				<%= render @view_module, @view_template, assigns %>
+			</main>
+		</div>
+
+
+		<!--
+		<div class="container">
+			<header class="header">
+				<nav role="navigation">
+					<ul class="nav nav-pills pull-right">
+						<li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
+					</ul>
+				</nav>
+				<span class="logo"></span>
+			</header>
+
+			<p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+			<p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+
+			<main role="main">
+				<%= render @view_module, @view_template, assigns %>
+			</main>
+
+		</div> <!-- /container -->
+		<script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+	</body>
 </html>
