@@ -3,6 +3,7 @@ defmodule Andromeda.FleetController do
   alias EveFleet.FleetDetails
 
   plug Guardian.Plug.EnsureAuthenticated, handler: Andromeda.AuthController
+  plug :scrub_params, "name" when action in [:create]
 
   def index(conn, _params) do
     render conn, "fleet_creation.html"
