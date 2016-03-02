@@ -11,10 +11,10 @@ defmodule Andromeda.FleetController do
 
   def fleet(conn, %{"fleet_id" => fleet_id}) do
     user = Guardian.Plug.current_resource(conn)
-    if user.fleet_id == fleet_id do
+    if user.fleet == fleet_id do
       render conn, "application.html", fleet_id: fleet_id
     else
-      EveFleetFleet.look_pid(fleet_id)
+      EveFleet.Registry.look_pid(EveFleet.Registry,fleet_id)
       |>EveFleet.Fleet.add_member(user.id)
       render conn, "application.html", fleet_id: fleet_id
     end
