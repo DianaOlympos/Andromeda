@@ -3,7 +3,7 @@ defmodule Andromeda.AuthController do
   alias EveUser.UserDetails
 
   def index(conn, %{"fleet_id"=>fleet_id}) do
-    redirect conn, external: Andromeda.Eve.authorize_url!(fleet_id)
+    redirect conn, external: Andromeda.Eve.authorize_url!([fleet_id])
   end
 
   def index(conn, _params) do

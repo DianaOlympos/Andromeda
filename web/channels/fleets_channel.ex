@@ -6,7 +6,7 @@ defmodule Andromeda.FleetsChannel do
     {:ok, socket}
   end
 
-  def join("rooms:" <> _private_room_id, _params, socket) do
+  def join("fleet:" <> _private_room_id, _params, socket) do
     user = Guardian.Channel.current_resource(socket)
     {:ok, socket}
   end
