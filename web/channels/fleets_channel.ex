@@ -1,13 +1,12 @@
 defmodule Andromeda.FleetsChannel do
   use Phoenix.Channel
-  import Guardian.Channel
 
   def join("fleet:lobby", _message, socket) do
     {:ok, socket}
   end
 
   def join("fleet:" <> _private_room_id, _params, socket) do
-    user = Guardian.Channel.current_resource(socket)
+    user = Guardian.Phoenix.Socket.current_resource(socket)
     {:ok, socket}
   end
 
