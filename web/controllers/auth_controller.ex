@@ -2,7 +2,6 @@ defmodule Andromeda.AuthController do
   use Andromeda.Web, :controller
   alias EveUser.UserDetails
 
-
   def index(conn, %{"fleet_id"=>fleet_id}) do
     redirect conn, external: Andromeda.Eve.authorize_url!(fleet_id)
   end
@@ -61,7 +60,7 @@ defmodule Andromeda.AuthController do
     EveUser.Registry.create(EveUser.Registry,user)
 
     conn
-    |> Guardian.Plug.sign_in(user, :token)
+    |> Guardian.Plug.sign_in(user.id, :token)
     |> put_flash(:info, char_details["CharacterName"]<>" logged succesfully")
   end
 
@@ -78,7 +77,7 @@ defmodule Andromeda.AuthController do
     EveUser.Registry.create(EveUser.Registry,user)
 
     conn
-    |> Guardian.Plug.sign_in(user, :token)
+    |> Guardian.Plug.sign_in(user.id, :token)
     |> put_flash(:info, char_details["CharacterName"]<>" logged succesfully")
   end
 

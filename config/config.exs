@@ -22,7 +22,8 @@ config :guardian, Guardian,
         ttl: { 20, :hours },
         verify_issuer: true, # optional
         secret_key: "PWRDjzEkJdw48BsgdNyzHGF6Atvb6HCtxLj95aDU",
-        serializer: Andromeda.GuardianSerializer
+        serializer: Andromeda.GuardianSerializer,
+        verify_module: Andromeda.GuardianVerifier
 
 # Configures Elixir's Logger
 config :logger, :console,
