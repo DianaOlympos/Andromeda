@@ -36,7 +36,7 @@ defmodule EveFleet.Fleet do
   end
 
   def handle_call({:add, member}, _from, fleet) do
-    %FleetDetails{ fleet | :members_list => [member | fleet.member_list]}
+    %FleetDetails{ fleet | :members_list => [member | fleet.members_list]}
     user = EveUser.User.get_user(member)
     %UserDetails{user | :fleet => fleet.id}
     EveUser.User.update_user(member, user)
