@@ -57,7 +57,7 @@
 			<nav>
 				<h1>ANDROMEDA</h1>
 				<h4>Your friendly fleet assistant</h4>
-				<a class="isLoggedIn show" href="/auth/signout/"><h2></h2></a>
+				<a id="logout" class="isLoggedIn show" href="/auth/signout/">Logout</a>
 				<a class="isLoggedOut show" href="/auth/"><img src="<%= static_path(@conn, "/images/EVE_SSO_Login_Buttons_Large_White.png") %>" /></a>
 				<label id="menu" for="showSidebar" class="isLoggedIn fade click">MENU</label>
 				<h5 id="smallheading" class="isLoggedIn fade">Andromeda</h5>
