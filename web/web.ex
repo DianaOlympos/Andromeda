@@ -16,23 +16,10 @@ defmodule Andromeda.Web do
   below.
   """
 
-  def model do
-    quote do
-      use Ecto.Schema
-
-      import Ecto
-      import Ecto.Changeset
-      import Ecto.Query, only: [from: 1, from: 2]
-    end
-  end
 
   def controller do
     quote do
       use Phoenix.Controller
-
-      alias Andromeda.Repo
-      import Ecto
-      import Ecto.Query, only: [from: 1, from: 2]
 
       import Andromeda.Router.Helpers
       import Andromeda.Gettext
@@ -65,9 +52,6 @@ defmodule Andromeda.Web do
     quote do
       use Phoenix.Channel
 
-      alias Andromeda.Repo
-      import Ecto
-      import Ecto.Query, only: [from: 1, from: 2]
       import Andromeda.Gettext
     end
   end

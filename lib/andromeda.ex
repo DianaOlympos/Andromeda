@@ -9,8 +9,7 @@ defmodule Andromeda do
     children = [
       # Start the endpoint when the application starts
       supervisor(Andromeda.Endpoint, []),
-      # Start the Ecto repository
-      supervisor(Andromeda.Repo, []),
+
       # Here you could define other workers and supervisors as children
       # worker(Andromeda.Worker, [arg1, arg2, arg3]),
       supervisor(EveUser.Registry.Supervisor, []),

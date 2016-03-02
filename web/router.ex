@@ -36,7 +36,7 @@ defmodule Andromeda.Router do
   end
 
   scope "/", Andromeda do
-    pipe_through :browser # Use the default browser stack
+    pipe_through [:browser, :browser_session]
 
     get "/", PageController, :index
   end

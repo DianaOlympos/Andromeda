@@ -6,14 +6,6 @@ use Mix.Config
 config :andromeda, Andromeda.Endpoint,
   secret_key_base: "gf8P2S8sxoDj2hADfGbjM3bTc2aSWOJEB3mf6qxeoWFgnF8zWeEZMd4pDV7F6jTk"
 
-# Configure your database
-config :andromeda, Andromeda.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "andromeda_prod",
-  pool_size: 20
-
 config :andromeda,
   client_id: "0ae0d33077f64f5684d4b4f98aa9b103",
   client_secret: "5POw9ETaNqm7ZgdgNEJILGScR0pIUbHXL1AyVFf1",
