@@ -1,3 +1,10 @@
+<form method="POST" action="<%= Andromeda.Router.Helpers.fleet_path(Andromeda.Endpoint, :create) %>">
+	<input type="text" name="name" placeholder="Fleet Name" />
+	<input type="submit" value="CREATE" />
+</form>
+
+
+<!--
 <div class="jumbotron">
 	<h2><%= gettext "Welcome to %{name}", name: "Phoenix!" %></h2>
 	<p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
@@ -38,7 +45,7 @@
 			</li>
 		</ul>
 	</div>
-</div>
+</div>-->
 <script type="text/javascript">
 	isLoggedIn = <%= if is_authed?(@conn) do %>true<% else %>false<% end %>;
 </script>

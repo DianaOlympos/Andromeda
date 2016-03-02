@@ -49,7 +49,7 @@
 		height: 80%;
 		background-color: #3B3355;
 		z-index: 2;
-		transition: height .2s;
+		transition: height .5s;
 		color: #FEFCFD;
 		text-align: center;
 		border-bottom: 5px solid #5D5D81;
@@ -112,4 +112,39 @@
 		right: 0;
 		bottom: 0;
 		background-color: #FEFCFD;
+		padding: 10px;
+	}
+
+	main > form {
+		max-width: 800px;
+		width: 100%;
+		margin: auto;
+		margin-top: 75px;
+	}
+
+	main > form > * {
+		margin-bottom: 10px;
+	}
+
+	.btn, button, input[type="submit"] {
+		display: block;
+		border: 4px solid #5D5D81;
+		background-color: #88A;
+		width: 100%;
+		padding: 10px;
+		color: #12130F;
+		font-weight: bold;
+		transition: background-color .2s;
+	}
+
+	.btn:hover, button:hover, input[type="submit"]:hover {
+		background-color: #5D5D81;
+	}
+
+	input[type="text"] {
+	    border: 4px solid #5D5D81;
+	    padding: 10px;
+	    width: 100%;
+	    display: block;
+	    margin-bottom: 10px;
 	}
