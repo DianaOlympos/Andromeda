@@ -45,6 +45,7 @@ defmodule EveFleet.Fleet do
     {:ok, user} = EveUser.User.get_user(member)
     update_user=%UserDetails{user | :fleet => fleet.id}
     EveUser.User.update_user(member, update_user)
+    Task.Supervisor.start_child(CrestMap.TaskSupervisor,fn -> CrestMap.MapLocation.location_handling(member) end)
     Process.send_after(self, {:update_location, member}, 15000)
     {:reply, {:ok, update_fleet}, update_fleet}
   end
@@ -64,7 +65,7 @@ defmodule EveFleet.Fleet do
 
   def handle_info({:update_location, member}, _from, fleet) do
     if member in fleet.members_list do
-      Task.Supervisor.start_child(CrestMap.MapLocation.Supervisor,fn -> CrestMap.MapLocation.location_handling(member) end)
+      Task.Supervisor.start_child(CrestMap.TaskSupervisor,fn -> CrestMap.MapLocation.location_handling(member) end)
       Process.send_after(self, {:update_location, member}, 15000)
     end
     {:no_reply, fleet}
