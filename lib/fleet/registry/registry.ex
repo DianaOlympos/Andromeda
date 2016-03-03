@@ -69,7 +69,7 @@ defmodule EveFleet.Registry do
   def handle_call({:look, id}, _from, {fleets, refs}) do
     case lookup(fleets, id) do
       {:ok, pid} ->
-        {:reply, pid, {fleets, refs}}
+        {:reply, {:ok, pid}, {fleets, refs}}
       {:error, msg } ->
         {:reply, {:error, msg}, {fleets, refs}}
     end

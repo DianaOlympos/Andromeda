@@ -1,7 +1,7 @@
 defmodule CrestMap.MapLocation do
   alias CrestMap.LocationSolarSystem
   alias HTTPoison.Response
-
+  alias EveUser.UserDetails
 
 def location_handling(id) do
   get_location(id)
@@ -18,6 +18,8 @@ def location({user, {:ok, %Response{status_code: 200, body: body}}}) do
   if system["solarSystem"][:id] == user.location do
     Task.Supervisor.terminate_child(CrestMap.MapLocation.Supervisor,self)
   else
+    new_user = %UserDetails{ user | :location => system["solarSystem"][:id]}
+    EveUser.User.update_user(new_user.id, new_user)
     fleet = EveFleet.Fleet.get_data_id(user.fleet)
     Andromeda.Endpoint.broadcast! "pilot:"<>fleet.fc, "location_member", %{member_id: user.id, member_name: user.name, location: system["solarSystem"]}
     Andromeda.Endpoint.broadcast! "pilot:"<>user.id, "location", %{member_id: user.id, member_name: user.name, location: system["solarSystem"]}

@@ -15,7 +15,7 @@ defmodule EveUser.User do
   end
 
   def get_user(id) when is_integer(id) do
-    with  pid <- EveUser.Registry.look_pid(EveUser.Registry,id),
+    with {:ok, pid} <- EveUser.Registry.look_pid(EveUser.Registry,id),
           do: {:ok, Agent.get(pid, fn user -> user end)}
   end
 
@@ -35,7 +35,7 @@ defmodule EveUser.User do
     user = get_user(pid)
     params = Keyword.put([],:refresh_token, user.refresh_token)
     token = Andromeda.EveRefresh.get_token!(params)
-    %{user | access_token: token.access_token}
-    update_user(pid, user)
+    new_user = %UserDetails{user | access_token: token.access_token}
+    update_user(pid, new_user)
   end
 end

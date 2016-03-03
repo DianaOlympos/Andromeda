@@ -70,7 +70,7 @@ defmodule EveUser.Registry do
   def handle_call({:look, id}, _from, {users, refs}) do
     case lookup(users, id) do
       {:ok, pid} ->
-        {:reply, pid, {users, refs}}
+        {:reply, {:ok, pid}, {users, refs}}
       {:error, msg } ->
         {:reply, {:error, msg}, {users, refs}}
     end

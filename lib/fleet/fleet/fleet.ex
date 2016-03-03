@@ -14,8 +14,8 @@ defmodule EveFleet.Fleet do
   end
 
   def get_data_id(id) do
-    with pid <- EveFleet.Registry.look_pid(EveFleet.Registry,id),
-      do: get_data(pid)
+    with {:ok, pid} <- EveFleet.Registry.look_pid(EveFleet.Registry, id),
+      do: GenServer.call(pid, :get)
   end
 
   def add_member(pid, member) do
@@ -41,12 +41,12 @@ defmodule EveFleet.Fleet do
   end
 
   def handle_call({:add, member}, _from, fleet) do
-    %FleetDetails{ fleet | :members_list => [member | fleet.members_list]}
+    update_fleet = %FleetDetails{ fleet | :members_list => [member | fleet.members_list]}
     {:ok, user} = EveUser.User.get_user(member)
-    %UserDetails{user | :fleet => fleet.id}
-    EveUser.User.update_user(member, user)
+    update_user=%UserDetails{user | :fleet => fleet.id}
+    EveUser.User.update_user(member, update_user)
     Process.send_after(self, {:update_location, member}, 15000)
-    {:reply, {:ok}, fleet}
+    {:reply, {:ok, update_fleet}, fleet}
   end
 
   def handle_call({:pop, member}, _from, fleet) do
@@ -54,8 +54,8 @@ defmodule EveFleet.Fleet do
     if member in list do
       list=List.delete(member)
     end
-    %FleetDetails{ fleet | :members_list => list}
-    {:reply, {:ok}, fleet}
+    new_fleet = %FleetDetails{ fleet | :members_list => list}
+    {:reply, {:ok}, new_fleet}
   end
 
   def handle_call({:update, new_fleet}, _from, _fleet) do
