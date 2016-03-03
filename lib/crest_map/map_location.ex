@@ -10,13 +10,14 @@ defmodule CrestMap.MapLocation do
 
   def location({user, {:ok, %Response{status_code: 200, body: "{}"}}}) do
     pid = EveUser.Registry.look_pid(EveUser.Registry,user.id)
+        |>IO.inspect
     Agent.stop(pid)
   end
 
   def location({user, {:ok, %Response{status_code: 200, body: body}}}) do
     system = Poison.decode!(body, as: %{"solarSystem" => %LocationSolarSystem{}})
     if system["solarSystem"][:id] == user.location do
-      Task.Supervisor.terminate_child(CrestMap.TaskSupervisor,self)
+      Task.Supervisor.terminate_child(CrestMap.TaskSupervisor, self)
     else
       new_user = %UserDetails{ user | :location => system["solarSystem"][:id]}
       EveUser.User.update_user(new_user.id, new_user)
@@ -33,22 +34,18 @@ defmodule CrestMap.MapLocation do
 
   defp get_location(id) do
     {:ok, user} = EveUser.User.get_user(id)
-    result = "https://crest-tq.eveonline.com/characters/#{id}/location/"
-    |>add_header(user)
-    |>HTTPoison.get
+    result = HTTPoison.get("https://crest-tq.eveonline.com/characters/#{id}/location/",header(user))
     {user,result}
     end
 
-  defp add_header(url, user) do
+  defp header(user) do
     user_agent = Application.get_env(:andromeda,:user_agent)
-    [url,
       [{"Accept", "application/json"},
         {"accept-encoding", "gzip"},
         {"user-agent", user_agent},
         {"X-Clacks-Overhead", "GNU Terry Pratchett"},
         {"Authorization", "Bearer " <>user.access_token}
       ]
-    ]
   end
 
 end
