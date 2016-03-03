@@ -15,9 +15,9 @@ defmodule Andromeda.EveRefresh do
       client_id: Application.get_env(:andromeda, :client_id),
       client_secret: Application.get_env(:andromeda, :client_secret),
       redirect_uri: Application.get_env(:andromeda, :redirect_uri),
-      site: "https://login.eveonline.com",
-      authorize_url: "https://login.eveonline.com/oauth/authorize",
-      token_url: "https://login.eveonline.com/oauth/token"
+      site: " https://api-sisi.testeveonline.com/",
+      authorize_url: "https://api-sisi.testeveonline.com/oauth/authorize",
+      token_url: "https://api-sisi.testeveonline.com/oauth/token"
     ])
   end
 

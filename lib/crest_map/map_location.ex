@@ -35,7 +35,7 @@ defmodule CrestMap.MapLocation do
 
   defp get_location(id) do
     {:ok, user} = EveUser.User.get_user(id)
-    result = HTTPoison.get("https://crest-tq.eveonline.com/characters/#{id}/location/",header(user))
+    result = HTTPoison.get("https://api-sisi.testeveonline.com/characters/#{id}/location/",header(user))
     {user,result}
     end
 
