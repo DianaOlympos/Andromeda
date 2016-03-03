@@ -19,6 +19,10 @@ defmodule EveUser.User do
           do: {:ok, Agent.get(pid, fn user -> user end)}
   end
 
+  def get_user_name(id) when is_integer(id) do
+    with {:ok, pid} <- EveUser.Registry.look_pid(EveUser.Registry,id),
+      do: Agent.get(pid, fn user -> user.name end)
+  end
   @doc """
   adds items to the list.
   """
