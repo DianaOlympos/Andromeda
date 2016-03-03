@@ -5,12 +5,12 @@ defmodule MapData.MapName do
     Agent.start_link(fn -> MapData.MapName.produce_map end, name: name)
 end
 
-  def get_names(id) do
+  def get_name(id) do
     Agent.get(MapData.MapName, fn %{^id => result} ->result end)
   end
 
   def get_multiple_name(list_id) do
-    Enum.map(list_id, fn id -> get_names(id) end)
+    Enum.map(list_id, fn id -> get_name(id) end)
   end
 
   def produce_map() do
