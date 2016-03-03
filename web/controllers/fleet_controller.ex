@@ -11,7 +11,6 @@ defmodule Andromeda.FleetController do
 
   def fleet(conn, %{"fleet_id" => fleet_id}) do
     user = Guardian.Plug.current_resource(conn)
-    IO.inspect(user)
     if user.fleet == fleet_id do
       render conn, "application.html", fleet_id: fleet_id
     else
