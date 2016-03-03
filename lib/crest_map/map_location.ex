@@ -9,7 +9,8 @@ def location_handling(id) do
 end
 
 def location({user, {:ok, %Response{status_code: 200, body: "{}"}}}) do
-  #sign out user
+  pid = EveUser.Registry.look_pid(EveUser.Registry,user.id)
+  Agent.stop(pid)
 end
 
 def location({user, {:ok, %Response{status_code: 200, body: body}}}) do
