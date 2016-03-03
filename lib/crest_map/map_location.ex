@@ -9,7 +9,8 @@ def location_handling(id) do
 end
 
 def location({user, {:ok, %Response{status_code: 200, body: "{}"}}}) do
-  #sign out user
+  pid = EveUser.Registry.look_pid(EveUser.Registry,user.id)
+  Agent.stop(pid)
 end
 
 def location({user, {:ok, %Response{status_code: 200, body: body}}}) do
@@ -18,7 +19,7 @@ def location({user, {:ok, %Response{status_code: 200, body: body}}}) do
     Task.Supervisor.terminate_child(CrestMap.MapLocation.Supervisor,self)
   else
     #calculer la map et la broadcast a l'utilisateur
-    Andromeda.Endpoint.broadcast! "fleet_fc:"<>user.fleet_id, "location", %{member_id: user.id, member_name: user.name, location: system["people"]}
+    Andromeda.Endpoint.broadcast! "pilot:"<>user.fleet_id, "location", %{member_id: user.id, member_name: user.name, location: system["people"]}
   end
 end
 
