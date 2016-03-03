@@ -46,7 +46,7 @@ defmodule EveFleet.Fleet do
     update_user=%UserDetails{user | :fleet => fleet.id}
     EveUser.User.update_user(member, update_user)
     Process.send_after(self, {:update_location, member}, 15000)
-    {:reply, {:ok, update_fleet}, fleet}
+    {:reply, {:ok, update_fleet}, update_fleet}
   end
 
   def handle_call({:pop, member}, _from, fleet) do
