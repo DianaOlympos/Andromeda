@@ -2,7 +2,9 @@ defmodule Andromeda.FleetsChannel do
   use Phoenix.Channel
 
   def join("pilot:" <> _user_id , _message, socket) do
-    {:ok, socket}
+    user = Guardian.Phoenix.Socket.current_resource(socket)
+    fleet = EveFleet.Fleet.get_data_id(user.fleet_id)
+    {:ok, fleet.member_list, socket}
   end
 
   def join("fleet:" <> _fleet_id, _params, socket) do
