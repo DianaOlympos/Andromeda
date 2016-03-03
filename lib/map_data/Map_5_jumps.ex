@@ -1,4 +1,5 @@
 defmodule MapData.Map5Jumps do
+  alias MapData.SystemMap
 
   def get_5_jump(id) do
     get_map_depth([id], 5, [[id]])
@@ -6,7 +7,7 @@ defmodule MapData.Map5Jumps do
     |>Enum.with_index()
     |>Enum.map(fn {x, depth} -> Enum.map(x, &({&1,depth})) end)
     |>List.flatten()
-#    |>Enum.map(fn {x, depth} -> )
+    |>Enum.map(fn {x, depth} -> %SystemMap{id: x, depth: depth, name: MapData.MapName.get_name(x)} end)
   end
 
   defp get_map_depth(_list, 0, acc) do

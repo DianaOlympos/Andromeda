@@ -9,8 +9,13 @@ defmodule EveFleet.Fleet do
     GenServer.start_link(__MODULE__, %FleetDetails{})
   end
 
-  def get_data(pid) do
+  def get_data(pid) when is_pid(pid) do
     GenServer.call(pid, :get)
+  end
+
+  def get_data_id(id) do
+    with pid <- EveFleet.Registry.look_pid(EveFleet.Registry,id),
+      do: get_data(pid)
   end
 
   def add_member(pid, member) do
