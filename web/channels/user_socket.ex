@@ -5,6 +5,7 @@ defmodule Andromeda.UserSocket do
   ## Channels
   channel "fleet:*", Andromeda.FleetsChannel
   channel "fleet_fc:*", Andromeda.FleetsChannel
+  channel "user:*", Andromeda.FleetsChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
