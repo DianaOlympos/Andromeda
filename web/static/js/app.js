@@ -7,11 +7,13 @@
 // in vendor, which are never wrapped in imports and
 // therefore are always executed.
 
+	"use strict";
+
 // Import dependencies
 //
 // If you no longer want to use a dependency, remember
 // to also remove its path from "config.paths.watched".
-import "phoenix_html"
+	//import "phoenix_html";
 
 // Import local files
 //
@@ -20,8 +22,20 @@ import "phoenix_html"
 
 // import socket from "./socket"
 	
-	init();
+	import {Socket} from "phoenix";
 
-	function init () {
-		$("#isLoggedIn").checked = isLoggedIn;
-	}
+	let guardianToken = $('meta[name="guardian_token"]').getAttribute('content');
+	let socket = new Socket("/socket", { params: { guardian_token: guardianToken } });
+	socket.connect();
+
+	let pilotChannel;
+	let fleetChannel = socket.channel("fleet:" + window.location.pathname.split("/").splice(-1, 1)[0], {});
+	fleetChannel.join()
+		.receive("ok", resp => { 
+			console.log("Joined fleet successfully", resp); 
+			pilotChannel = socket.channel("pilot:" + resp);
+			pilotChannel.join()
+				.receive("ok", resp => { console.log("Joined pilot successfully", resp); })
+				.receive("error", resp => { console.log("Unable to join", resp); });
+		})
+		.receive("error", resp => { console.log("Unable to join", resp); });

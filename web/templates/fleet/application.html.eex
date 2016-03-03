@@ -2,6 +2,12 @@
 	<meta name='guardian_token' content="<%= Guardian.Plug.current_token(@conn) %>">
 <% end %>
 
+<script type="text/javascript">
+	isLoggedIn = !!$('meta[name="guardian_token"]');
+</script>
+
+<script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+
 <%#to connect, use
 let socket = new Socket("/ws");
 let guardianToken = jQuery('meta[name="guardian_token"]').attr('content');

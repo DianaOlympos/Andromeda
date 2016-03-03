@@ -88,6 +88,12 @@
 			</main>
 
 		</div> <!-- /container -->
-		<script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+		<script type="text/javascript">
+			init();
+
+			function init () {
+				$("#isLoggedIn").checked = isLoggedIn;
+			}
+		</script>
 	</body>
 </html>

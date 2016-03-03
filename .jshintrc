@@ -1,0 +1,10 @@
+{
+	"esversion": 		6,
+	"indent": 			1,
+	"browser": 			true,
+	"devel": 			true,
+	"strict": 			"global",
+	"globals": {
+		"$": 		true
+	}
+}
