@@ -9,8 +9,7 @@ defmodule MapData.Supervisor do
     children = [
       worker(MapData.MapLink, [MapData.MapLink], restart: :transient),
       worker(MapData.MapName, [MapData.MapName], restart: :transient)
-      ])
-    ]
+      ]
 
     supervise(children, strategy: :one_for_one)
   end

@@ -1,29 +1,32 @@
 defmodule MapData.Map5Jumps do
-  alias MapData.MapLink
 
   def get_5_jump(id) do
-    get_map_depth([id], 5, [id])
+    get_map_depth([id], 5, [[id]])
+    |>Enum.reverse()
     |>Enum.with_index()
     |>Enum.map(fn {x, depth} -> Enum.map(x, &({&1,depth})) end)
-    |>Enum.flatten()
-    |>Enum.map(fn {x, depth} -> )
+    |>List.flatten()
+#    |>Enum.map(fn {x, depth} -> )
   end
 
-  defp get_map_depth(list, 0, acc) do
+  defp get_map_depth(_list, 0, acc) do
     acc
   end
 
   defp get_map_depth(list, depth, acc) do
-    result = list
-    |> get_multiple_links()
-    |> Enum.flatten()
+    result =list
+    |> MapData.MapLink.get_multiple_links()
+    |> List.flatten()
     |> Enum.uniq
-    |> Enum.filter(fn x -> not_in_rest(x,acc))
-    |> get_map_depth(depth-1,[acc | result])
+    |> Enum.filter(fn x -> not_in_rest(x,acc) end)
+
+    get_map_depth(result, depth-1,[result | acc])
   end
 
   defp not_in_rest(x,acc) do
-    list = Enum.flatten(acc)
-    x not in list
+    test = acc
+    |>List.flatten(acc)
+    |>Enum.member?(x)
+    not test
   end
 end

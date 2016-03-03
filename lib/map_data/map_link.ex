@@ -2,18 +2,18 @@ defmodule MapData.MapLink do
   alias CSV
 
   def start_link(name) do
-    Agent.start_link(__MODULE__, :produce_map,[], name: name)
+    Agent.start_link(fn -> MapData.MapLink.produce_map end, name: name)
 end
 
   def get_links(id) do
-    Agent.get(MapData.MapLink, fn {id=> result} ->result end)
+    Agent.get(MapData.MapLink, fn %{^id => result} -> result end)
   end
 
-  def get_multiple_links(list_id) do
-    Enum.map(list_id, fn id -> get_links(id) end)
+  def get_multiple_links(list) do
+    Enum.map(list, fn id -> get_links(id) end)
   end
 
-  defp produce_map() do
+  def produce_map() do
    File.stream!("mapSolarSystemJumps.csv")
    |>CSV.decode(headers: true)
    |>Stream.map(fn %{"fromSolarSystemID" => from, "toSolarSystemID" => to} -> {String.to_integer(to), [String.to_integer(from)]} end)
