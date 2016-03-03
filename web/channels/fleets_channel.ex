@@ -18,8 +18,18 @@ defmodule Andromeda.FleetsChannel do
     {:noreply, socket}
   end
 
-  def handle_out("new_msg", payload, socket) do
-    push socket, "new_msg", payload
+  def handle_out("location_member", payload, socket) do
+    push socket, "location_member", payload
+    {:noreply, socket}
+  end
+
+  def handle_out("location", payload, socket) do
+    push socket, "location", payload
+    {:noreply, socket}
+  end
+
+  def handle_out("map", payload, socket) do
+    push socket, "map", payload
     {:noreply, socket}
   end
 end
