@@ -3,6 +3,7 @@
 /db
 /deps
 /*.ez
+.tool-versions
 
 # Generate on crash by the VM
 erl_crash.dump
