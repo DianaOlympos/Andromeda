@@ -7,7 +7,8 @@ defmodule MapData.Supervisor do
 
   def init(:ok) do
     children = [
-      worker(MapData.MapLink, [MapData.MapLink], restart: :transient)
+      worker(MapData.MapLink, [MapData.MapLink], restart: :transient),
+      worker(MapData.MapName, [MapData.MapName], restart: :transient)
       ])
     ]
 

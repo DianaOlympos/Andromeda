@@ -1,5 +1,5 @@
 defmodule MapData.MapLink do
-alias CSV
+  alias CSV
 
   def start_link(name) do
     Agent.start_link(__MODULE__, :produce_map,[], name: name)
