@@ -15,7 +15,7 @@ defmodule CrestMap.MapLocation do
   end
 
   def location({user, {:ok, %Response{status_code: 200, body: body}}}) do
-    IO.inspect(body)
+    IO.inspect(body,[binaries: :as_string])
     system = Poison.decode!(body, as: %{"solarSystem" => %LocationSolarSystem{}})
     if system["solarSystem"][:id] == user.location do
       Task.Supervisor.terminate_child(CrestMap.TaskSupervisor, self)
