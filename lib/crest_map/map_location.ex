@@ -32,7 +32,7 @@ defmodule CrestMap.MapLocation do
   end
 
   defp get_location(id) do
-    user = EveUser.User.get_user(id)
+    {:ok, user} = EveUser.User.get_user(id)
     result = "https://crest-tq.eveonline.com/characters/#{id}/location/"
     |>add_header(user)
     |>HTTPoison.get
