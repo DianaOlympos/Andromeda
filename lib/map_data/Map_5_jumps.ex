@@ -6,6 +6,7 @@ defmodule MapData.Map5Jumps do
     |>Enum.with_index()
     |>Enum.map(fn {x, depth} -> Enum.map(x, &({&1,depth})) end)
     |>Enum.flatten()
+    |>Enum.map(fn {x, depth} -> )
   end
 
   defp get_map_depth(list, 0, acc) do
