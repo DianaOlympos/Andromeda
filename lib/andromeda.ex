@@ -13,7 +13,8 @@ defmodule Andromeda do
       # Here you could define other workers and supervisors as children
       # worker(Andromeda.Worker, [arg1, arg2, arg3]),
       supervisor(EveUser.Registry.Supervisor, []),
-      supervisor(EveFleet.Registry.Supervisor, [])
+      supervisor(EveFleet.Registry.Supervisor, []),
+      supervisor(MapData.Supervisor,[])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
