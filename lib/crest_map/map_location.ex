@@ -18,7 +18,7 @@ def location({user, {:ok, %Response{status_code: 200, body: body}}}) do
   if system["solarSystem"][:id] == user.location do
     Task.Supervisor.terminate_child(CrestMap.MapLocation.Supervisor,self)
   else
-    fleet = EveFleet.Fleet.get_data_id(user.fleet_id)
+    fleet = EveFleet.Fleet.get_data_id(user.fleet)
     Andromeda.Endpoint.broadcast! "pilot:"<>fleet.fc, "location_member", %{member_id: user.id, member_name: user.name, location: system["solarSystem"]}
     Andromeda.Endpoint.broadcast! "pilot:"<>user.id, "location", %{member_id: user.id, member_name: user.name, location: system["solarSystem"]}
     Andromeda.Endpoint.broadcast! "pilot:"<>user.id, "map", %{map: MapData.Map5Jumps.get_5_jump(system["solarSystem"])}
