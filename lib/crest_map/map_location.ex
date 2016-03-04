@@ -9,9 +9,6 @@ defmodule CrestMap.MapLocation do
   end
 
   def location({user, {:ok, %Response{status_code: 200, body: "{}"}}}) do
-    pid = EveUser.Registry.look_pid(EveUser.Registry,user.id)
-        |>IO.inspect
-    Agent.stop(pid)
   end
 
   def location({user, {:ok, %Response{status_code: 200, body: body}}}) do
@@ -23,9 +20,9 @@ defmodule CrestMap.MapLocation do
       new_user = %UserDetails{ user | :location => system["solarSystem"][:id]}
       EveUser.User.update_user(new_user.id, new_user)
       fleet = EveFleet.Fleet.get_data_id(user.fleet)
-      Andromeda.Endpoint.broadcast! "pilot:"<>fleet.fc, "location_member", %{member_id: user.id, member_name: user.name, location: system["solarSystem"]}
-      Andromeda.Endpoint.broadcast! "pilot:"<>user.id, "location", %{member_id: user.id, member_name: user.name, location: system["solarSystem"]}
-      Andromeda.Endpoint.broadcast! "pilot:"<>user.id, "map", %{map: MapData.Map5Jumps.get_5_jump(system["solarSystem"])}
+      Andromeda.Endpoint.broadcast! "pilot:"<>Integer.to_string(fleet.fc), "location_member", %{member_id: user.id, member_name: user.name, location: system["solarSystem"]}
+      Andromeda.Endpoint.broadcast! "pilot:"<>Integer.to_string(user.id), "location", %{member_id: user.id, member_name: user.name, location: system["solarSystem"]}
+      Andromeda.Endpoint.broadcast! "pilot:"<>Integer.to_string(user.id), "map", %{map: MapData.Map5Jumps.get_5_jump(system["solarSystem"])}
     end
   end
 
