@@ -52,8 +52,10 @@ defmodule EveFleet.Fleet do
 
   def handle_call({:pop, member}, _from, fleet) do
     list = fleet.members_list
-    if member in list do
+    if Enum.member?(list, member) do
       list=List.delete(member)
+      pid = EveUser.Registry.look_pid(EveUser.Registry, member)
+      Agent.stop(pid)
     end
     new_fleet = %FleetDetails{ fleet | :members_list => list}
     {:reply, {:ok}, new_fleet}

@@ -32,7 +32,6 @@ defmodule Andromeda.FleetController do
       members_list: []
     }
 
-
     pid = EveFleet.Registry.create(EveFleet.Registry, fleet)
     EveFleet.Fleet.add_member(pid, fc.id)
     redirect conn, to: "/fleet/"<>fleet_id

@@ -39,8 +39,15 @@ defmodule Andromeda.AuthController do
   end
 
   def signout(conn, _params) do
+    user = Guardian.Plug.current_resource(conn)
+
     conn
     |> Guardian.Plug.sign_out
+
+    with {:ok, pid} <- EveFleet.Registry.look_pid(EveFleet.Registry, user.fleet),
+      do: EveFleet.Fleet.pop_member(pid, user.id)
+
+    conn
     |> put_flash(:info, "logged out succesfully")
     |> redirect(to: "/")
   end
