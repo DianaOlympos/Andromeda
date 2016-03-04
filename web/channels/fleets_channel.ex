@@ -19,29 +19,6 @@ defmodule Andromeda.FleetsChannel do
     {:noreply, socket}
   end
 
-  def handle_in("location", payload, socket) do
-    push socket, "location", payload
-    {:noreply, socket}
-  end
 
-  def handle_in("map", payload, socket) do
-    push socket, "map", payload
-    {:noreply, socket}
-  end
 
-  def handle_out("location_member", payload, socket) do
-    IO.inspect(payload)
-    push socket, "location_member", payload
-    {:noreply, socket}
-  end
-
-  def handle_out("location", payload, socket) do
-    push socket, "location", payload
-    {:noreply, socket}
-  end
-
-  def handle_out("map", payload, socket) do
-    push socket, "map", payload
-    {:noreply, socket}
-  end
 end

@@ -14,9 +14,9 @@ defmodule CrestMap.MapLocation do
   def location({user, {:ok, %Response{status_code: 200, body: body}}}) do
     system = Poison.decode!(body, as: %{"solarSystem" => LocationSolarSystem})
     final_system = system["solarSystem"]
-     if final_system.id == user.location do
-       Task.Supervisor.terminate_child(CrestMap.TaskSupervisor, self)
-     else
+     # if final_system.id == user.location do
+     #   Task.Supervisor.terminate_child(CrestMap.TaskSupervisor, self)
+     # else
       new_user = %UserDetails{ user | :location => final_system.id}
 
       EveUser.User.update_user(user.id, new_user)
@@ -24,7 +24,9 @@ defmodule CrestMap.MapLocation do
       Andromeda.Endpoint.broadcast! "pilot:"<>Integer.to_string(fleet.fc), "location_member", %{:member_id => user.id, :member_name => user.name, :location => final_system}
       Andromeda.Endpoint.broadcast! "pilot:"<>Integer.to_string(user.id), "location", %{:member_id => user.id, :member_name => user.name, :location => final_system}
       Andromeda.Endpoint.broadcast! "pilot:"<>Integer.to_string(user.id), "map", %{map: MapData.Map5Jumps.get_5_jump(final_system.id)}
-    end
+
+
+    #end
   end
 
   def location({user, _}) do
