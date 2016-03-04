@@ -41,12 +41,18 @@ defmodule EveFleet.Fleet do
   end
 
   def handle_call({:add, member}, _from, fleet) do
-    update_fleet = %FleetDetails{ fleet | :members_list => [member | fleet.members_list]}
-    {:ok, user} = EveUser.User.get_user(member)
-    update_user = %UserDetails{user | :fleet => update_fleet.id}
-    EveUser.User.update_user(member, update_user)
-    Process.send_after(self(), {:update_location, member}, 1000)
-    {:reply, {:ok, update_fleet}, update_fleet}
+    if Enum.member?(fleet.members_list, member) do
+      {:reply, {:ok, fleet}, fleet}
+    else
+      update_fleet = %FleetDetails{ fleet | :members_list => [member | fleet.members_list]}
+      {:ok, user} = EveUser.User.get_user(member)
+      update_user = %UserDetails{user | :fleet => update_fleet.id}
+      EveUser.User.update_user(member, update_user)
+      Process.send_after(self(), {:update_location, member}, 1000)
+      Process.send_after(self(), :members_list, 500)
+      {:reply, {:ok, update_fleet}, update_fleet}
+    end
+
   end
 
   def handle_call({:pop, member}, _from, fleet) do
@@ -68,6 +74,7 @@ defmodule EveFleet.Fleet do
   def handle_info({:update_location, member}, fleet) do
     if Enum.member?(fleet.members_list,member) do
       Task.Supervisor.start_child(CrestMap.TaskSupervisor,fn -> CrestMap.MapLocation.location_handling(member) end)
+      IO.inspect(member)
       Process.send_after(self(), {:update_location, member}, 15000)
     end
     {:noreply, fleet}
