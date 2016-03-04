@@ -56,6 +56,7 @@ defmodule EveFleet.Fleet do
       list=List.delete(member)
       pid = EveUser.Registry.look_pid(EveUser.Registry, member)
       Agent.stop(pid)
+      Process.send_after(self(), :members_list, 500)
     end
     new_fleet = %FleetDetails{ fleet | :members_list => list}
     {:reply, {:ok}, new_fleet}
