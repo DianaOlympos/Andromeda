@@ -63,13 +63,13 @@
 	}
 
 	nav > h1 {
-		font-size: 100px;
+		font-size: 500%;
 		margin-bottom: 0;
-		margin-top: 250px;
+		margin-top: 20%;
 	}
 
 	nav > h4 {
-		font-size: 50px;
+		font-size: 250%;
 		margin-top: 0px;
 		border-top: 6px solid white;
 		padding-top: 10px;
@@ -147,4 +147,12 @@
 	    width: 100%;
 	    display: block;
 	    margin-bottom: 10px;
+	}
+
+	.floatmenu {
+		position: absolute;
+		top: 0;
+		left: 0;
+		padding: 20px;
+		background-color: white;
 	}

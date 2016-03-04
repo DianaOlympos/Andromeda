@@ -6,6 +6,12 @@
 	isLoggedIn = !!$('meta[name="guardian_token"]');
 </script>
 
+<div class="floatmenu">
+	<input type="checkbox" id="followfc"></input><label for="followfc">Follow FC?</label>
+</div>
+
+<canvas id="map"></canvas>
+
 <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
 
 <%#to connect, use

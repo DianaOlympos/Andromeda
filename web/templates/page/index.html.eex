@@ -2,50 +2,6 @@
 	<input type="text" name="name" placeholder="Fleet Name" />
 	<input type="submit" value="CREATE" />
 </form>
-
-
-<!--
-<div class="jumbotron">
-	<h2><%= gettext "Welcome to %{name}", name: "Phoenix!" %></h2>
-	<p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
-	<%= if is_authed?(@conn) do %>
-		<a href="/auth/signout/"><h2>Sign out</h2></a>
-	<% else %>
-		<a href="/auth/"><h2>Sign In with Eve SSO</h2></a>
-	<% end %>
-</div>
-
-<div class="row marketing">
-	<div class="col-lg-6">
-		<h4>Resources</h4>
-		<ul>
-			<li>
-				<a href="http://phoenixframework.org/docs/overview">Guides</a>
-			</li>
-			<li>
-				<a href="http://hexdocs.pm/phoenix">Docs</a>
-			</li>
-			<li>
-				<a href="https://github.com/phoenixframework/phoenix">Source</a>
-			</li>
-		</ul>
-	</div>
-
-	<div class="col-lg-6">
-		<h4>Help</h4>
-		<ul>
-			<li>
-				<a href="http://groups.google.com/group/phoenix-talk">Mailing list</a>
-			</li>
-			<li>
-				<a href="http://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on freenode IRC</a>
-			</li>
-			<li>
-				<a href="https://twitter.com/elixirphoenix">@elixirphoenix</a>
-			</li>
-		</ul>
-	</div>
-</div>-->
 <script type="text/javascript">
 	isLoggedIn = <%= if is_authed?(@conn) do %>true<% else %>false<% end %>;
 </script>
