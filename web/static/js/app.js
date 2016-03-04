@@ -59,7 +59,11 @@
 			andi.pilotChannel.on("map", resp => { andi.map = resp.map; drawMap(); });
 
 			andi.pilotChannel.join()
-				.receive("ok", resp => { console.log("Joined pilot successfully", resp); })
+				.receive("ok", resp => { 
+					console.log("Joined pilot successfully", resp); 
+
+					andi.pilotlist = resp; drawPilotlist();
+				})
 				.receive("error", resp => { console.log("Unable to join", resp); });
 
 		})
@@ -161,7 +165,7 @@
 	}
 
 	function drawPilotlist () {
-
+		El($("#memberlist")).clear().appendChildren(andi.pilotlist.map(pilot => El("div", { innerHTML: pilot.name })));
 	}
 
 	function toDegrees (angle) {

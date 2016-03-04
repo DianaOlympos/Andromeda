@@ -10,6 +10,11 @@
 	<input type="checkbox" id="followfc"></input><label for="followfc">Follow FC?</label>
 </div>
 
+<div class="floatingmembers">
+	<h4>Members</h4>
+	<div id="memberlist"></div>
+</div>
+
 <canvas id="map"></canvas>
 
 <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
