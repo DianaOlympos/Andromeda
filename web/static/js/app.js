@@ -45,7 +45,7 @@
 	andi.fleetChannel = socket.channel("fleet:" + window.location.pathname.split("/").splice(-1, 1)[0], {});
 	
 	andi.fleetChannel
-		.on("pilot_list", resp => { andi.pilotlist = resp; drawPilotlist(); });
+		.on("pilot_list", resp => { andi.pilotlist = resp.pilots; drawPilotlist(); });
 	
 	andi.fleetChannel.join()
 		.receive("ok", resp => { 
