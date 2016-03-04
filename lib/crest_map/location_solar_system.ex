@@ -5,10 +5,10 @@ defmodule CrestMap.LocationSolarSystem do
             :id,
             :name]
 
-  @type t :: %CrestMap.LocationSolarSystem{[
+  @type t :: %CrestMap.LocationSolarSystem{
             id_str: String.t,
             href: String.t,
             id: integer,
-            name: String.t]
+            name: String.t
   }
 end
