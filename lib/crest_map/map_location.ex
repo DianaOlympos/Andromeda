@@ -25,8 +25,8 @@ defmodule CrestMap.MapLocation do
       fleet = EveFleet.Fleet.get_data_id(user.fleet)
       Andromeda.Endpoint.broadcast! "pilot:"<>Integer.to_string(fleet.fc), "location_member", %{:member_id => user.id, :member_name => user.name, :location => final_system}
       Andromeda.Endpoint.broadcast! "pilot:"<>Integer.to_string(user.id), "location", %{:member_id => user.id, :member_name => user.name, :location => final_system}
-      Andromeda.Endpoint.broadcast! "pilot:"<>Integer.to_string(user.id), "map", %{:member_id => user.id, :member_name => user.name, :location => final_system}
-    #end
+      Andromeda.Endpoint.broadcast! "pilot:"<>Integer.to_string(user.id), "map", %{map: MapData.Map5Jumps.get_5_jump(final_system.id)}
+      #end
   end
 
   def location({user, _}) do
