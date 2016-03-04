@@ -17,6 +17,14 @@ config :andromeda, Andromeda.Endpoint,
   cache_static_manifest: "priv/static/manifest.json"
   server: true
 
+config :guardian, Guardian,
+        issuer: "Andromeda",
+        ttl: { 20, :hours },
+        verify_issuer: true, # optional
+        secret_key: "PWRDjzEkJdw48BsgdNyzHGF6Atvb6HCtxLj95aDU",
+        serializer: Andromeda.GuardianSerializer,
+        verify_module: Andromeda.GuardianVerifier
+
 # Do not print debug messages in production
 config :logger, level: :info
 
