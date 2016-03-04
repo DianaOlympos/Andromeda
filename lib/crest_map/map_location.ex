@@ -39,9 +39,7 @@ defmodule CrestMap.MapLocation do
   defp header(user) do
     user_agent = Application.get_env(:andromeda,:user_agent)
       [{"Accept", "application/json"},
-        {"accept-encoding", "gzip"},
         {"user-agent", user_agent},
-        {"X-Clacks-Overhead", "GNU Terry Pratchett"},
         {"Authorization", "Bearer " <>user.access_token}
       ]
   end
