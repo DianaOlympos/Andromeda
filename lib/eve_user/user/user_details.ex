@@ -8,7 +8,8 @@ defmodule EveUser.UserDetails do
             fleet: "",
             refresh_token: "",
             access_token: "",
-            location: 0
+            location: 0,
+            follow_fc: true
 
   @type t :: %EveUser.UserDetails{
     id: integer,
@@ -20,5 +21,6 @@ defmodule EveUser.UserDetails do
     fleet: String.t,
     refresh_token: String.t,
     access_token: String.t,
-    location: integer}
+    location: integer,
+    follow_fc: boolean}
 end

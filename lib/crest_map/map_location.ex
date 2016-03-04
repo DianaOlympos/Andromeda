@@ -24,8 +24,10 @@ defmodule CrestMap.MapLocation do
       Andromeda.Endpoint.broadcast! "pilot:"<>Integer.to_string(fleet.fc), "location_member", %{:member_id => user.id, :member_name => user.name, :location => final_system}
       Andromeda.Endpoint.broadcast! "pilot:"<>Integer.to_string(user.id), "location", %{:member_id => user.id, :member_name => user.name, :location => final_system}
       Andromeda.Endpoint.broadcast! "pilot:"<>Integer.to_string(user.id), "map", %{map: MapData.Map5Jumps.get_5_jump(final_system.id)}
+      if new_user.follow_fc && final_system.id != (fc_location = EveUser.User.get_user_location(fleet.fc)) do
+        push_destination(new_user, fc_location)
 
-
+      end
     #end
   end
 
@@ -47,4 +49,18 @@ defmodule CrestMap.MapLocation do
       ]
   end
 
+  defp push_destination(user, location_id) do
+    system = %CrestMap.SolarSystem{
+            href: "https://public-crest.eveonline.com/solarsystems/"<>Integer.to_string(location_id),
+            id: location_id
+            }
+    payload = %CrestMap.LocationWrite{
+            solarSystem: system,
+            first: false,
+            clearOtherWaypoint: true
+            }
+
+    json= Andromeda.CrestHelperView.render("locationWrite.json", payload)
+    HTTPoison.post("https://crest-tq.eveonline.com/characters/#{user.id}/navigation/waypoints/", json,header(user))
+  end
 end
