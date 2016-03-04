@@ -1,10 +1,12 @@
 defmodule MapData.SystemMap do
   defstruct id: 0,
             name: "Nowhere",
-            depth: 0
+            depth: 0,
+            connection: []
 
-  @type t :: %EveFleet.FleetDetails{
+  @type t :: %MapData.SystemMap{
     id: integer,
     name: String.t,
-    fc: integer}
+    depth: integer,
+    connection: list}
 end

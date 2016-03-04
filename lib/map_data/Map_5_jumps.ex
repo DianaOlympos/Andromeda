@@ -7,7 +7,7 @@ defmodule MapData.Map5Jumps do
     |>Enum.with_index()
     |>Enum.map(fn {x, depth} -> Enum.map(x, &({&1,depth})) end)
     |>List.flatten()
-    |>Enum.map(fn {x, depth} -> %SystemMap{id: x, depth: depth, name: MapData.MapName.get_name(x)} end)
+    |>Enum.map(fn {x, depth} -> %SystemMap{id: x, depth: depth, name: MapData.MapName.get_name(x), connection: MapData.MapLink.get_links(x)} end)
   end
 
   defp get_map_depth(_list, 0, acc) do
