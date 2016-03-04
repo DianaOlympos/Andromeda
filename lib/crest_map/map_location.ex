@@ -13,9 +13,9 @@ defmodule CrestMap.MapLocation do
 
   def location({user, {:ok, %Response{status_code: 200, body: body}}}) do
     IO.inspect(body,[binaries: :as_string])
-    system = Poison.decode!(body, as: %{"solarSystem" : [LocationSolarSystem])
+    system = Poison.decode!(body, as: %{"solarSystem" => [LocationSolarSystem]})
     [final_system|_list] = system["solarSystem"]
-    if final_system["solarSystem"][:id] == user.location do
+    if final_system.id == user.location do
       Task.Supervisor.terminate_child(CrestMap.TaskSupervisor, self)
     else
       new_user = %UserDetails{ user | :location => final_system.id}
