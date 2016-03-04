@@ -2,6 +2,7 @@ defmodule EveFleet.Fleet do
   use GenServer
   alias EveFleet.FleetDetails
   alias EveUser.UserDetails
+  alias CrestMap.LocationSolarSystem
 
  # Client
 
@@ -43,10 +44,9 @@ defmodule EveFleet.Fleet do
   def handle_call({:add, member}, _from, fleet) do
     update_fleet = %FleetDetails{ fleet | :members_list => [member | fleet.members_list]}
     {:ok, user} = EveUser.User.get_user(member)
-    update_user=%UserDetails{user | :fleet => fleet.id}
+    update_user = %UserDetails{user | :fleet => fleet.id}
     EveUser.User.update_user(member, update_user)
-    Task.Supervisor.start_child(CrestMap.TaskSupervisor,fn -> CrestMap.MapLocation.location_handling(member) end)
-    Process.send_after(self, {:update_location, member}, 15000)
+    Process.send_after(self(), {:update_location, member}, 1000)
     {:reply, {:ok, update_fleet}, update_fleet}
   end
 
@@ -63,11 +63,11 @@ defmodule EveFleet.Fleet do
     {:reply, {:ok}, new_fleet}
   end
 
-  def handle_info({:update_location, member}, _from, fleet) do
-    if Enum.member?(member,fleet.members_list) do
+  def handle_info({:update_location, member}, fleet) do
+    #if Enum.member?(member,fleet.members_list) do
       Task.Supervisor.start_child(CrestMap.TaskSupervisor,fn -> CrestMap.MapLocation.location_handling(member) end)
-      Process.send_after(self, {:update_location, member}, 15000)
-    end
-    {:no_reply, fleet}
+      Process.send_after(self(), {:update_location, member}, 15000)
+    #end
+    {:noreply, fleet}
   end
 end

@@ -1,9 +1,9 @@
 defmodule CrestMap.LocationSolarSystem do
 
-  defstruct [:id_str,
-            :href,
-            :id,
-            :name]
+  defstruct id_str: "",
+            href: "",
+            id: 0,
+            name: ""
 
   @type t :: %CrestMap.LocationSolarSystem{
             id_str: String.t,

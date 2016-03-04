@@ -2,7 +2,7 @@ defmodule Evesurvey.Characterdetails do
   use HTTPoison.Base
 
   def fetch_user_details (access_token) do
-    "https://sisilogin.testeveonline.com/oauth/verify/"
+    "https://login.eveonline.com/oauth/verify/"
     |> HTTPoison.get([{"Authorization", "Bearer "<>access_token}])
     |> handle_response()
   end
