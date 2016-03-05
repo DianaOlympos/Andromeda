@@ -75,6 +75,8 @@
 		if(andi.map.length === 0 || !andi.me)
 			return;
 
+		$("#floatinglocation").innerHTML = andi.map.find(system => system.depth === 0).name;
+
 		let width = $("main").clientWidth - 20;
 		let height = $("main").clientHeight - 20;
 

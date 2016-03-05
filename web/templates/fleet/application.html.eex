@@ -15,6 +15,8 @@
 	<div id="memberlist"></div>
 </div>
 
+<h2 id="floatinglocation"></h2>
+
 <canvas id="map"></canvas>
 
 <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
