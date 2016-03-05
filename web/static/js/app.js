@@ -55,7 +55,7 @@
 			andi.pilotChannel = socket.channel("pilot:" + resp);
 			
 			andi.pilotChannel.on("location_member", resp => {});
-			andi.pilotChannel.on("location", resp => { andi.me = resp; drawMap(); });
+			andi.pilotChannel.on("location", resp => { andi.me = resp; $("#smallheading").innerHTML = "Andromeda - Welcome " + andi.me.member_name; drawMap(); });
 			andi.pilotChannel.on("map", resp => { andi.map = resp.map; drawMap(); });
 
 			andi.pilotChannel.join()
@@ -103,9 +103,15 @@
 
 		console.log(depths[1], ringdist, sysdist);
 
-
+		ctx.strokeStyle = "gray";
+		depths.map((depth, index) => {
+			ctx.beginPath();
+			ctx.arc(center[0], center[1], ringdist * index, 0, Math.PI * 2);
+			ctx.stroke();
+		});
 
 	
+		ctx.strokeStyle = "black";
 		depths.map(depth => 
 			depth
 				.map(system => !(system.render = {}) || system)
