@@ -17,7 +17,7 @@ defmodule Andromeda.FleetsChannel do
 
   def handle_in("follow_fc", payload, socket) do
     user = Guardian.Phoenix.Socket.current_resource(socket)
-    update_user = %UserDetails{user | :follow_fc => String.to_atom(payload)}
+    update_user = %UserDetails{user | :follow_fc => payload}
     EveUser.User.update_user(update_user.id, update_user)
     {:noreply, socket}
   end
