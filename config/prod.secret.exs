@@ -12,3 +12,11 @@ config :andromeda,
   redirect_uri: "",
   scope: "characterLocationRead characterNavigationWrite",
   user_agent: ""
+
+config :guardian, Guardian,
+        issuer: "Andromeda",
+        ttl: { 20, :hours },
+        verify_issuer: true, # optional
+        secret_key: "PWRDjzEkJdw48BsgdNyzHGF6Atvb6HCtxLj95aDU",
+        serializer: Andromeda.GuardianSerializer,
+        verify_module: Andromeda.GuardianVerifier
