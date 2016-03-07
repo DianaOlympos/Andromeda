@@ -36,7 +36,7 @@ defmodule Andromeda.Mixfile do
      {:cowboy, "~> 1.0"},
      {:oauth2, "~> 0.5"},
      {:guardian, "~> 0.10.0"},
-     {:csv, "~> 1.2.4"},
+     {:csv, "~> 1.3.0"},
      {:exrm, "~>1.0.2"}]
   end
 
