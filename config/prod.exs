@@ -14,7 +14,7 @@ use Mix.Config
 config :andromeda, Andromeda.Endpoint,
   http: [port: 8888],
   url: [host: "rommie.space"],
-  cache_static_manifest: "priv/static/manifest.json"
+  cache_static_manifest: "priv/static/manifest.json",
   server: true
 
 config :guardian, Guardian,
