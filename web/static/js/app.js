@@ -75,6 +75,8 @@
 		if(andi.map.length === 0 || !andi.me)
 			return;
 
+		$("#floatinglocation").innerHTML = andi.map.find(system => system.depth === 0).name;
+
 		let width = $("main").clientWidth - 20;
 		let height = $("main").clientHeight - 20;
 
@@ -124,7 +126,7 @@
 					let shardIDs = shards.map(shard => shard.id);
 					let shardDeg = splitDeg / (shards.length == depth.length ? 1 : shardIDs.length);
 
-					system.render.degrees = (parent.render.degrees) - (splitDeg / 2) + (shardDeg * shardIDs.indexOf(system.id));
+					system.render.degrees = (parent.render.degrees) - (splitDeg / 2) + (shardDeg / 2) + (shardDeg * shardIDs.indexOf(system.id));
 
 					return system;
 				})
@@ -191,6 +193,6 @@
 	}
 
 	function getParent (system) {
-		console.log(system, filterByDepth(andi.map, system.depth - 1));
+		console.log(system, filterByDepth(andi.map, system.depth - 1).find(sys => sys.connection.indexOf(system.id) != -1) || { render: { degrees: 0 }, connection: [system.id] });
 		return filterByDepth(andi.map, system.depth - 1).find(sys => sys.connection.indexOf(system.id) != -1) || { render: { degrees: 0 }, connection: [system.id] };
 	}

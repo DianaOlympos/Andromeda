@@ -164,3 +164,11 @@
 		padding: 20px;
 		background-color: white;
 	}
+
+	#floatinglocation {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		text-align: center;
+	}
