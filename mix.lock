@@ -22,7 +22,7 @@
   "idna": {:hex, :idna, "1.1.0"},
   "jose": {:hex, :jose, "1.7.0"},
   "mimerl": {:hex, :mimerl, "1.0.2"},
-  "mimetype_parser": {:hex, :mimetype_parser, "0.1.1"},
+  "mimetype_parser": {:hex, :mimetype_parser, "0.1.2"},
   "neotoma": {:hex, :neotoma, "1.7.3"},
   "oauth2": {:hex, :oauth2, "0.5.0"},
   "parallel_stream": {:hex, :parallel_stream, "1.0.3"},

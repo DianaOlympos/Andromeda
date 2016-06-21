@@ -52,54 +52,6 @@ See the moduledoc for `Conform.Schema.Validator` for more details and examples.
   extends: [],
   import: [],
   mappings: [
-    "guardian.Elixir.Guardian.issuer": [
-      commented: false,
-      datatype: :binary,
-      default: "Andromeda",
-      doc: "Provide documentation for guardian.Elixir.Guardian.issuer here.",
-      hidden: false,
-      to: "guardian.Elixir.Guardian.issuer"
-    ],
-    "guardian.Elixir.Guardian.ttl": [
-      commented: false,
-      datatype: {:atom, :atom},
-      default: {20, :hours},
-      doc: "Provide documentation for guardian.Elixir.Guardian.ttl here.",
-      hidden: false,
-      to: "guardian.Elixir.Guardian.ttl"
-    ],
-    "guardian.Elixir.Guardian.verify_issuer": [
-      commented: false,
-      datatype: :atom,
-      default: true,
-      doc: "Provide documentation for guardian.Elixir.Guardian.verify_issuer here.",
-      hidden: false,
-      to: "guardian.Elixir.Guardian.verify_issuer"
-    ],
-    "guardian.Elixir.Guardian.secret_key": [
-      commented: false,
-      datatype: :binary,
-      default: "PWRDjzEkJdw48BsgdNyzHGF6Atvb6HCtxLj95aDU",
-      doc: "Provide documentation for guardian.Elixir.Guardian.secret_key here.",
-      hidden: false,
-      to: "guardian.Elixir.Guardian.secret_key"
-    ],
-    "guardian.Elixir.Guardian.serializer": [
-      commented: false,
-      datatype: :atom,
-      default: Andromeda.GuardianSerializer,
-      doc: "Provide documentation for guardian.Elixir.Guardian.serializer here.",
-      hidden: false,
-      to: "guardian.Elixir.Guardian.serializer"
-    ],
-    "guardian.Elixir.Guardian.verify_module": [
-      commented: false,
-      datatype: :atom,
-      default: Andromeda.GuardianVerifier,
-      doc: "Provide documentation for guardian.Elixir.Guardian.verify_module here.",
-      hidden: false,
-      to: "guardian.Elixir.Guardian.verify_module"
-    ],
     "logger.console.format": [
       commented: false,
       datatype: :binary,
@@ -242,6 +194,54 @@ See the moduledoc for `Conform.Schema.Validator` for more details and examples.
       doc: "Provide documentation for andromeda.user_agent here.",
       hidden: false,
       to: "andromeda.user_agent"
+    ],
+    "guardian.Elixir.Guardian.issuer": [
+      commented: false,
+      datatype: :binary,
+      default: "Andromeda",
+      doc: "Provide documentation for guardian.Elixir.Guardian.issuer here.",
+      hidden: false,
+      to: "guardian.Elixir.Guardian.issuer"
+    ],
+    "guardian.Elixir.Guardian.ttl": [
+      commented: false,
+      datatype: {:atom, :atom},
+      default: {20, :hours},
+      doc: "Provide documentation for guardian.Elixir.Guardian.ttl here.",
+      hidden: false,
+      to: "guardian.Elixir.Guardian.ttl"
+    ],
+    "guardian.Elixir.Guardian.verify_issuer": [
+      commented: false,
+      datatype: :atom,
+      default: true,
+      doc: "Provide documentation for guardian.Elixir.Guardian.verify_issuer here.",
+      hidden: false,
+      to: "guardian.Elixir.Guardian.verify_issuer"
+    ],
+    "guardian.Elixir.Guardian.secret_key": [
+      commented: false,
+      datatype: :binary,
+      default: "PWRDjzEkJdw48BsgdNyzHGF6Atvb6HCtxLj95aDU",
+      doc: "Provide documentation for guardian.Elixir.Guardian.secret_key here.",
+      hidden: false,
+      to: "guardian.Elixir.Guardian.secret_key"
+    ],
+    "guardian.Elixir.Guardian.serializer": [
+      commented: false,
+      datatype: :atom,
+      default: Andromeda.GuardianSerializer,
+      doc: "Provide documentation for guardian.Elixir.Guardian.serializer here.",
+      hidden: false,
+      to: "guardian.Elixir.Guardian.serializer"
+    ],
+    "guardian.Elixir.Guardian.verify_module": [
+      commented: false,
+      datatype: :atom,
+      default: Andromeda.GuardianVerifier,
+      doc: "Provide documentation for guardian.Elixir.Guardian.verify_module here.",
+      hidden: false,
+      to: "guardian.Elixir.Guardian.verify_module"
     ],
     "phoenix.generators.migration": [
       commented: false,

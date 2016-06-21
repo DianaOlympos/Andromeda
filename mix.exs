@@ -37,9 +37,9 @@ defmodule Andromeda.Mixfile do
      {:oauth2, "~> 0.5"},
      {:guardian, "~> 0.10.0"},
      {:csv, "~> 1.3.0"},
-     {:exrm, "~>1.0.2"},
-     {:conform, "~> 2.0.0"},
-     {:conform_exrm, "~> 1.0.0"}]
+     {:exrm, "~>1.0"},
+     {:conform, "~> 2.0"},
+     {:conform_exrm, "~> 1.0"}]
   end
 
   # Aliases are shortcut or tasks specific to the current project.
