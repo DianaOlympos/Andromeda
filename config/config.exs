@@ -9,7 +9,6 @@ use Mix.Config
 config :andromeda, Andromeda.Endpoint,
   url: [host: "localhost"],
   root: Path.dirname(__DIR__),
-  secret_key_base: "yWc7xtr2Hu+egeNJUgmB4LGm08acwzMTcfXJM/254BwnhPqOvTNxnSEdeE/Xn4VU",
   render_errors: [accepts: ~w(html json)],
   pubsub: [name: Andromeda.PubSub,
            adapter: Phoenix.PubSub.PG2]
